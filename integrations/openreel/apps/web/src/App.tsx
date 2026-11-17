@@ -10,6 +10,7 @@ import { useProjectRecovery } from "./hooks/useProjectRecovery";
 import { useKieAIPoller } from "./hooks/useKieAIPoller";
 import { SOCIAL_MEDIA_PRESETS, type SocialMediaCategory } from "@openreel/core";
 import { ToolcraftText as Text } from "@openreel/ui";
+import { LanguageSelector } from "./components/LanguageSelector";
 
 const EditorInterface = lazy(() =>
   import("./components/editor/EditorInterface").then((m) => ({
@@ -157,6 +158,7 @@ function App() {
 
   return (
     <div className="h-screen h-[100dvh] w-screen bg-background text-text-primary overflow-hidden">
+      {(showWelcome || isSharePage) && <LanguageSelector placement="corner" />}
       <MobileBlocker />
       {isSharePage ? (
         <Suspense fallback={<LoadingSpinner message="Loading shared video..." />}>
