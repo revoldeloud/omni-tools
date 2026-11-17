@@ -11,6 +11,7 @@ const sharedThemeOptions: ThemeOptions = {
 export const lightTheme = createTheme({
   ...sharedThemeOptions,
   palette: {
+    primary: { main: '#137b64' },
     background: {
       default: '#F5F5FA',
       hover: '#FAFAFD',
@@ -31,6 +32,7 @@ export const darkTheme = createTheme({
   ...sharedThemeOptions,
   palette: {
     mode: 'dark',
+    primary: { main: '#64c5a0' },
     background: {
       default: '#1C1F20',
       paper: '#181a1b',

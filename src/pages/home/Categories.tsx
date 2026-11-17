@@ -44,13 +44,14 @@ function SingleCategory({
         variant="outlined"
         sx={{
           height: '100%',
-          borderRadius: 3,
-          borderTop: '4px solid',
-          borderTopColor: index < 4 ? 'primary.main' : 'divider',
+          borderRadius: 4,
+          borderColor: (theme) => theme.palette.mode === 'dark' ? '#30433e' : '#e0ebe6',
+          background: (theme) => theme.palette.mode === 'dark' ? '#1a2825' : '#fff',
           transition: 'transform 150ms ease, box-shadow 150ms ease',
           '&:hover': {
             transform: 'translateY(-3px)',
-            boxShadow: 3
+            boxShadow: '0 16px 38px rgba(15, 67, 50, .10)',
+            borderColor: '#96cbb6'
           }
         }}
       >
@@ -61,16 +62,16 @@ function SingleCategory({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 52,
-                height: 52,
+              width: 48,
+              height: 48,
                 flexShrink: 0,
-                borderRadius: 2,
-                bgcolor: 'action.hover'
+              borderRadius: 2.5,
+              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#263c35' : '#edf7f1'
               }}
             >
               <Icon
                 icon={category.icon}
-                fontSize={34}
+                fontSize={26}
                 color={categoriesColors[index % categoriesColors.length]}
               />
             </Box>
@@ -99,21 +100,15 @@ function SingleCategory({
           </Typography>
           <Stack spacing={1} sx={{ mt: 'auto' }}>
             <Button
-              variant="contained"
+              variant="outlined"
               size="small"
               fullWidth
+              sx={{ borderRadius: 2, fontWeight: 700, justifyContent: 'space-between', borderColor: 'divider', color: 'text.primary' }}
               onClick={() => navigate(`/categories/${category.type}`)}
             >
               {seeAllText}
             </Button>
-            <Button
-              variant="text"
-              size="small"
-              fullWidth
-              onClick={() => navigate(`/${category.example.path}`)}
-            >
-              {tryText}
-            </Button>
+            <Button variant="text" size="small" fullWidth sx={{ justifyContent: 'flex-start', color: '#13836a' }} onClick={() => navigate(`/${category.example.path}`)}>{tryText}</Button>
           </Stack>
         </CardContent>
       </Card>
@@ -129,8 +124,8 @@ export default function Categories() {
   const categories = getToolsByCategory(selectedUserTypes, t, undefined, false);
 
   return (
-    <Box width="100%" maxWidth={1440} px={{ xs: 1, sm: 2, md: 3 }}>
-      <Grid container spacing={2}>
+    <Box width="100%">
+      <Grid container spacing={2.5}>
         {categories.map((category, index) => (
           <SingleCategory
             key={category.type}

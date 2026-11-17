@@ -21,23 +21,27 @@ const Navbar: React.FC<NavbarProps> = () => {
         background: 'transparent',
         boxShadow: 'none',
         color: 'text.primary',
-        pt: 2
+        py: 1,
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.paper'
       }}
     >
-      <Toolbar sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Toolbar sx={{ maxWidth: 1200, width: '100%', mx: 'auto', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <Typography
-            variant="h4"
+            variant="h5"
             component="span"
             sx={{
-              fontWeight: 700,
-              letterSpacing: '0.03em',
+              fontWeight: 850,
+              letterSpacing: '-0.05em',
               color: theme.palette.text.primary
             }}
           >
             Utitools
           </Typography>
         </Link>
+        <Typography variant="body2" sx={{ display: { xs: 'none', sm: 'block' }, color: 'text.secondary', fontWeight: 600 }}>Ferramentas simples. Resultados rápidos.</Typography>
       </Toolbar>
     </AppBar>
   );
