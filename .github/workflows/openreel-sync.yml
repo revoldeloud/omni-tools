@@ -32,4 +32,4 @@ jobs:
           fi
           git commit -m "vendor: add OpenReel source to Utitools"
           git push origin main
-# bootstrap-version: 1
+# bootstrap-version: 2
