@@ -35,7 +35,7 @@ function SingleCategory({
     title
   });
   const tryText = t('translation:categories.try', 'Try {{title}}', {
-    title: t(category.example.title)
+    title: t(category.example.title, category.example.title)
   });
 
   return (
