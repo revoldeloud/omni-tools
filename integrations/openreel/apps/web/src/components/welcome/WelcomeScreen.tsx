@@ -258,22 +258,22 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.05),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(34,197,94,0.03),transparent_50%)]" />
 
-      <div className="relative h-full flex flex-col items-center justify-center px-6">
-        <div className="w-full max-w-3xl">
-          <div className="flex flex-col items-center text-center mb-12">
+      <div className="relative h-full min-h-0 flex flex-col items-center justify-start sm:justify-center overflow-y-auto px-4 py-6 sm:px-6">
+        <div className="w-full max-w-3xl my-auto">
+          <div className="flex flex-col items-center text-center mb-6 sm:mb-12">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 text-primary">
                 <OpenReelLogo className="w-full h-full" />
               </div>
               <Text type="body" color="primary" weight="semibold" className="text-xl text-text-primary tracking-tight">
-                Open Reel Video
+                Utitools Video Editor
               </Text>
             </div>
 
-            <Text type="body" color="primary" weight="bold" className="text-4xl sm:text-5xl text-text-primary tracking-tight mb-3">
+            <Text type="body" color="primary" weight="bold" className="text-3xl sm:text-5xl text-text-primary tracking-tight mb-2 sm:mb-3">
               From idea to export.
             </Text>
-            <Text type="supporting" color="secondary" className="text-xl text-text-secondary mb-8">
+            <Text type="supporting" color="secondary" className="text-lg sm:text-xl text-text-secondary mb-4 sm:mb-8">
               In your browser.
             </Text>
             <Text type="supporting" color="secondary" className="text-base text-text-muted max-w-md">
@@ -281,7 +281,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
             </Text>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-10">
             {FORMAT_OPTIONS.map((option) => {
               const Icon = option.icon;
               const isHovered = hoveredFormat === option.id;
@@ -293,10 +293,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
                   onClick={() => handleCreateProject(option)}
                   onMouseEnter={() => setHoveredFormat(option.id)}
                   onMouseLeave={() => setHoveredFormat(null)}
-                  padding={6}
+                  padding={4}
                   variant="muted"
                   className={`
-                    group relative flex flex-col items-center p-6 rounded-2xl
+                    group relative flex flex-row sm:flex-col items-center gap-3 sm:gap-0 p-4 sm:p-6 rounded-2xl
                     bg-background-secondary border border-border
                     hover:border-primary/40 hover:bg-background-tertiary
                     transition-all duration-200
@@ -310,29 +310,31 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
                   `}
                   />
 
-                  <div className="relative z-10 flex flex-col items-center">
+                  <div className="relative z-10 flex flex-row sm:flex-col items-center gap-3 sm:gap-0 min-w-0 w-full">
                     <div
                       className={`
-                      w-16 h-16 mb-4 rounded-xl flex items-center justify-center
+                      w-12 h-12 sm:w-16 sm:h-16 shrink-0 mb-0 sm:mb-4 rounded-xl flex items-center justify-center
                       bg-background-tertiary group-hover:bg-primary/10
                       transition-colors duration-200
                     `}
                     >
                       <Icon
-                        size={28}
+                        size={24}
                         className="text-text-muted group-hover:text-primary transition-colors"
                       />
                     </div>
 
-                    <Text type="body" color="primary" weight="semibold" className="text-lg text-text-primary mb-1">
-                      {option.label}
-                    </Text>
-                    <Text type="supporting" color="secondary" className="text-sm text-text-muted mb-3">
-                      {option.description}
-                    </Text>
-                    <span className="text-xs font-mono text-text-muted/70 bg-background-tertiary px-2 py-1 rounded">
-                      {option.dimensions}
-                    </span>
+                    <div className="flex min-w-0 flex-col items-start sm:items-center text-left sm:text-center">
+                      <Text type="body" color="primary" weight="semibold" className="text-base sm:text-lg text-text-primary mb-0.5 sm:mb-1">
+                        {option.label}
+                      </Text>
+                      <Text type="supporting" color="secondary" className="text-xs sm:text-sm text-text-muted mb-1 sm:mb-3">
+                        {option.description}
+                      </Text>
+                      <span className="text-xs font-mono text-text-muted/70 bg-background-tertiary px-2 py-1 rounded">
+                        {option.dimensions}
+                      </span>
+                    </div>
                   </div>
 
                   <div
@@ -351,7 +353,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
             })}
           </div>
 
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 pb-16 sm:pb-0">
             <Button
               label="Browse templates"
               variant="secondary"
@@ -376,7 +378,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ initialTab }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4">
+        <div className="absolute bottom-2 sm:bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2">
             <ToolcraftSwitchControl
               label="Skip on startup"
