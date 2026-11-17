@@ -31,12 +31,7 @@ function SingleCategory({
     `categories.${category.type}.description`,
     category.description
   );
-  const seeAllText = t('translation:categories.seeAll', 'See all {{title}}', {
-    title
-  });
-  const tryText = t('translation:categories.try', 'Try {{title}}', {
-    title: t(category.example.title, category.example.title)
-  });
+  const toolsCount = category.tools.length;
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -44,14 +39,20 @@ function SingleCategory({
         variant="outlined"
         sx={{
           height: '100%',
-          borderRadius: 4,
-          borderColor: (theme) => theme.palette.mode === 'dark' ? '#30433e' : '#e0ebe6',
-          background: (theme) => theme.palette.mode === 'dark' ? '#1a2825' : '#fff',
-          transition: 'transform 150ms ease, box-shadow 150ms ease',
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: 3,
+          borderColor: (theme) => theme.palette.mode === 'dark' ? '#36554b' : '#d5e8df',
+          background: (theme) => theme.palette.mode === 'dark'
+            ? 'linear-gradient(145deg, #1d302b 0%, #17231f 100%)'
+            : `linear-gradient(145deg, ${index % 2 === 0 ? '#ffffff' : '#f4fbf7'} 0%, #edf7f1 100%)`,
+          boxShadow: (theme) => theme.palette.mode === 'dark' ? '0 8px 24px #07100d55' : '0 8px 24px #164b3510',
+          transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
+          '&::before': { content: '""', position: 'absolute', inset: '0 0 auto', height: 4, background: categoriesColors[index % categoriesColors.length] },
           '&:hover': {
-            transform: 'translateY(-3px)',
-            boxShadow: '0 16px 38px rgba(15, 67, 50, .10)',
-            borderColor: '#96cbb6'
+            transform: 'translateY(-4px)',
+            boxShadow: '0 18px 36px rgba(15, 67, 50, .16)',
+            borderColor: categoriesColors[index % categoriesColors.length]
           }
         }}
       >
@@ -62,16 +63,17 @@ function SingleCategory({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-              width: 48,
-              height: 48,
+                width: 52,
+                height: 52,
                 flexShrink: 0,
-              borderRadius: 2.5,
-              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#263c35' : '#edf7f1'
+                borderRadius: 2.5,
+                bgcolor: `${categoriesColors[index % categoriesColors.length]}20`,
+                boxShadow: `inset 0 0 0 1px ${categoriesColors[index % categoriesColors.length]}35`
               }}
             >
               <Icon
                 icon={category.icon}
-                fontSize={26}
+                fontSize={29}
                 color={categoriesColors[index % categoriesColors.length]}
               />
             </Box>
@@ -83,6 +85,9 @@ function SingleCategory({
               {title}
             </Typography>
           </Stack>
+          <Typography variant="caption" sx={{ display: 'inline-flex', mt: 1.5, px: 1.1, py: .45, borderRadius: 5, bgcolor: `${categoriesColors[index % categoriesColors.length]}18`, color: categoriesColors[index % categoriesColors.length], fontWeight: 800 }}>
+            {toolsCount} {toolsCount === 1 ? 'ferramenta' : 'ferramentas'}
+          </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
@@ -93,22 +98,23 @@ function SingleCategory({
               WebkitLineClamp: 3,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
-              minHeight: 60
+              minHeight: 60,
+              lineHeight: 1.55
             }}
           >
             {description}
           </Typography>
-          <Stack spacing={1} sx={{ mt: 'auto' }}>
+          <Stack spacing={1.2} sx={{ mt: 'auto' }}>
             <Button
               variant="outlined"
-              size="small"
+              size="medium"
               fullWidth
-              sx={{ borderRadius: 2, fontWeight: 700, justifyContent: 'space-between', borderColor: 'divider', color: 'text.primary' }}
+              sx={{ borderRadius: 2, fontWeight: 750, minHeight: 42, justifyContent: 'space-between', borderColor: `${categoriesColors[index % categoriesColors.length]}75`, color: 'text.primary', '&:hover': { bgcolor: `${categoriesColors[index % categoriesColors.length]}12`, borderColor: categoriesColors[index % categoriesColors.length] } }}
               onClick={() => navigate(`/categories/${category.type}`)}
             >
-              {seeAllText}
+              {`Ver todas as ferramentas de ${title}`}
             </Button>
-            <Button variant="text" size="small" fullWidth sx={{ justifyContent: 'flex-start', color: '#13836a' }} onClick={() => navigate(`/${category.example.path}`)}>{tryText}</Button>
+            <Button variant="contained" size="medium" fullWidth disableElevation sx={{ borderRadius: 2, minHeight: 42, fontWeight: 800, bgcolor: categoriesColors[index % categoriesColors.length], color: '#fff', '&:hover': { bgcolor: categoriesColors[index % categoriesColors.length], filter: 'brightness(.92)' } }} onClick={() => navigate(`/${category.example.path}`)}>Usar ferramenta</Button>
           </Stack>
         </CardContent>
       </Card>
