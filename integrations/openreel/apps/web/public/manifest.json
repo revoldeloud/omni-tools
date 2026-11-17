@@ -1,12 +1,12 @@
 {
-  "name": "OpenReel",
-  "short_name": "OpenReel",
-  "description": "Professional browser-based video, audio, and photo editing application",
+  "name": "Utitools Video Editor",
+  "short_name": "Utitools Video",
+  "description": "Editor de vídeo profissional no navegador",
   "start_url": "/openreel/",
   "display": "standalone",
   "background_color": "#1C1C1E",
   "theme_color": "#3b82f6",
-  "orientation": "landscape",
+  "orientation": "any",
   "icons": [
     {
       "src": "/openreel/icons/icon-192.png",
