@@ -18,20 +18,20 @@ import { TFunction } from 'i18next';
 import { FullI18nKey, I18nNamespaces } from '../i18n';
 
 const toolCategoriesOrder: ToolCategory[] = [
-  'image-generic',
   'pdf',
-  'string',
-  'video',
-  'time',
-  'audio',
-  'json',
-  'list',
-  'csv',
-  'number',
+  'image-generic',
   'png',
-  'xml',
   'gif',
-  'converters'
+  'video',
+  'audio',
+  'string',
+  'number',
+  'json',
+  'csv',
+  'xml',
+  'converters',
+  'list',
+  'time'
 ];
 export const tools: DefinedTool[] = [
   ...imageTools,
@@ -358,7 +358,8 @@ export const getToolCategories = (tool: DefinedTool): ToolCategory[] =>
 export const getToolsByCategory = (
   userTypes: UserType[] = [],
   t: TFunction<I18nNamespaces[]>,
-  allTools: DefinedTool[] = tools
+  allTools: DefinedTool[] = tools,
+  includeAlternativeCategories = true
 ): {
   title: string;
   rawTitle: string;
@@ -381,11 +382,14 @@ export const getToolsByCategory = (
     addToolToCategory(tool.type, tool);
   }
 
-  // Tools are then added to the alternative categories they declared
-  for (const tool of allTools) {
-    for (const category of tool.alternativeCategories ?? []) {
-      if (category === tool.type) continue;
-      addToolToCategory(category, tool);
+  // Keep alternate-category discovery available for existing callers, but allow
+  // category pages to show only tools that belong to that primary category.
+  if (includeAlternativeCategories) {
+    for (const tool of allTools) {
+      for (const category of tool.alternativeCategories ?? []) {
+        if (category === tool.type) continue;
+        addToolToCategory(category, tool);
+      }
     }
   }
 

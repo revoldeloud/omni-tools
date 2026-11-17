@@ -43,7 +43,7 @@ export default function ToolsByCategory() {
   const { t } = useTranslation(validNamespaces);
   const rawTitle = getToolCategoryTitle(categoryName as string, t);
   // First get tools by category without filtering
-  const toolsByCategory = getToolsByCategory(selectedUserTypes, t).find(
+  const toolsByCategory = getToolsByCategory(selectedUserTypes, t, undefined, false).find(
     ({ type }) => type === categoryName
   );
   const categoryDefinedTools = toolsByCategory?.tools ?? [];
@@ -78,7 +78,7 @@ export default function ToolsByCategory() {
       </Box>
       <Divider sx={{ borderColor: theme.palette.primary.main }} />
       <Box ref={mainContentRef} mt={3} ml={{ xs: 1, md: 2, lg: 3 }} padding={3}>
-        <Stack direction={'row'} justifyContent={'space-between'} spacing={2}>
+        <Stack direction={{ xs: 'column', md: 'row' }} justifyContent={'space-between'} spacing={2}>
           <Stack direction={'row'} alignItems={'center'} spacing={1}>
             <IconButton onClick={() => navigate('/')}>
               <ArrowBackIcon color={'primary'} />
@@ -88,6 +88,7 @@ export default function ToolsByCategory() {
             </Typography>
           </Stack>
           <TextField
+            sx={{ width: { xs: '100%', md: 380 } }}
             placeholder={t('translation:hero.search.placeholder')}
             aria-label={t('translation:hero.search.placeholder')}
             InputProps={{
@@ -116,7 +117,7 @@ export default function ToolsByCategory() {
         </Box>
         <Grid container spacing={2}>
           {categoryTools.map((tool, index) => (
-            <Grid item xs={12} md={6} lg={4} key={tool.path}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={tool.path}>
               <Stack
                 sx={{
                   backgroundColor: 'background.paper',

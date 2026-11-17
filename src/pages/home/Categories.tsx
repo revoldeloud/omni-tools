@@ -1,128 +1,144 @@
 import { getToolsByCategory } from '@tools/index';
 import Grid from '@mui/material/Grid';
-import { Box, Card, CardContent, Stack, useTheme } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
-import { categoriesColors } from 'config/uiConfig';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Stack,
+  Typography
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 import { getI18nNamespaceFromToolCategory } from '@utils/string';
+import { categoriesColors } from 'config/uiConfig';
 import { useUserTypeFilter } from '../../providers/UserTypeFilterProvider';
 
-type ArrayElement<ArrayType extends readonly unknown[]> =
-  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+type Category = ReturnType<typeof getToolsByCategory>[number];
 
-const SingleCategory = function ({
+function SingleCategory({
   category,
   index
 }: {
-  category: ArrayElement<ReturnType<typeof getToolsByCategory>>;
+  category: Category;
   index: number;
 }) {
   const { t } = useTranslation(getI18nNamespaceFromToolCategory(category.type));
   const navigate = useNavigate();
-  const theme = useTheme();
-  const [hovered, setHovered] = useState<boolean>(false);
-  const toggleHover = () => setHovered((prevState) => !prevState);
-
-  // Get translated category title and description
-  const categoryTitle = t(`categories.${category.type}.title`, category.title);
-  const categoryDescription = t(
+  const title = t(`categories.${category.type}.title`, category.title);
+  const description = t(
     `categories.${category.type}.description`,
     category.description
   );
   const seeAllText = t('translation:categories.seeAll', 'See all {{title}}', {
-    title: categoryTitle
+    title
   });
   const tryText = t('translation:categories.try', 'Try {{title}}', {
-    //@ts-ignore
     title: t(category.example.title)
   });
 
   return (
-    <Grid
-      item
-      xs={12}
-      md={6}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
-    >
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card
+        variant="outlined"
         sx={{
           height: '100%',
-          backgroundColor: hovered ? 'background.hover' : 'background.paper'
+          borderRadius: 3,
+          borderTop: '4px solid',
+          borderTopColor: index < 4 ? 'primary.main' : 'divider',
+          transition: 'transform 150ms ease, box-shadow 150ms ease',
+          '&:hover': {
+            transform: 'translateY(-3px)',
+            boxShadow: 3
+          }
         }}
       >
-        <CardContent sx={{ height: '100%' }}>
-          <Stack
-            direction={'column'}
-            height={'100%'}
-            justifyContent={'space-between'}
-          >
-            <Box>
-              <Stack direction={'row'} spacing={2} alignItems={'center'}>
-                <Icon
-                  icon={category.icon}
-                  fontSize={'60px'}
-                  style={{
-                    transform: `scale(${hovered ? 1.1 : 1}`
-                  }}
-                  color={categoriesColors[index % categoriesColors.length]}
-                />
-                <Link
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: theme.palette.mode === 'dark' ? 'white' : 'black'
-                  }}
-                  to={'/categories/' + category.type}
-                >
-                  {categoryTitle}
-                </Link>
-              </Stack>
-              <Typography sx={{ mt: 2 }}>{categoryDescription}</Typography>
+        <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Stack direction="row" spacing={1.5} alignItems="center">
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 52,
+                height: 52,
+                flexShrink: 0,
+                borderRadius: 2,
+                bgcolor: 'action.hover'
+              }}
+            >
+              <Icon
+                icon={category.icon}
+                fontSize={34}
+                color={categoriesColors[index % categoriesColors.length]}
+              />
             </Box>
-            <Grid container spacing={2} mt={2}>
-              <Grid item xs={12} md={6}>
-                <Button
-                  fullWidth
-                  sx={{ height: '100%' }}
-                  onClick={() => navigate('/categories/' + category.type)}
-                  variant={'contained'}
-                >
-                  {seeAllText}
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Button
-                  sx={{ backgroundColor: 'background.default', height: '100%' }}
-                  fullWidth
-                  onClick={() => navigate(category.example.path)}
-                  variant={'outlined'}
-                >
-                  {tryText}
-                </Button>
-              </Grid>
-            </Grid>
+            <Typography
+              component="h2"
+              variant="h6"
+              sx={{ fontWeight: 700, lineHeight: 1.25, overflowWrap: 'anywhere' }}
+            >
+              {title}
+            </Typography>
+          </Stack>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              mt: 2,
+              mb: 2,
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              minHeight: 60
+            }}
+          >
+            {description}
+          </Typography>
+          <Stack spacing={1} sx={{ mt: 'auto' }}>
+            <Button
+              variant="contained"
+              size="small"
+              fullWidth
+              onClick={() => navigate(`/categories/${category.type}`)}
+            >
+              {seeAllText}
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              fullWidth
+              onClick={() => navigate(`/${category.example.path}`)}
+            >
+              {tryText}
+            </Button>
           </Stack>
         </CardContent>
       </Card>
     </Grid>
   );
-};
+}
 
 export default function Categories() {
   const { selectedUserTypes } = useUserTypeFilter();
   const { t } = useTranslation();
-  const categories = getToolsByCategory(selectedUserTypes, t);
+  // Display a tool only in its own primary category on the portal.
+  // Global search and the original tool definitions remain unchanged.
+  const categories = getToolsByCategory(selectedUserTypes, t, undefined, false);
 
   return (
-    <Grid width={'80%'} container spacing={2}>
-      {categories.map((category, index) => (
-        <SingleCategory key={category.type} category={category} index={index} />
-      ))}
-    </Grid>
+    <Box width="100%" maxWidth={1440} px={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid container spacing={2}>
+        {categories.map((category, index) => (
+          <SingleCategory
+            key={category.type}
+            category={category}
+            index={index}
+          />
+        ))}
+      </Grid>
+    </Box>
   );
 }

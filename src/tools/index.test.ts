@@ -160,6 +160,17 @@ describe('alternative categories', () => {
     expect(stringCategory?.tools).toContain(pdfToolWithAlternativeCategory);
   });
 
+
+  it('shows only native tools when category pages request primary categories', () => {
+    const categories = getToolsByCategory([], tEn, tools, false);
+    const stringCategory = categories.find(({ type }) => type === 'string');
+    const pdfCategory = categories.find(({ type }) => type === 'pdf');
+
+    expect(stringCategory?.tools).toEqual([base64Tool]);
+    expect(pdfCategory?.tools).toContain(pdfToolWithAlternativeCategory);
+    expect(categories.map(({ type }) => type)).toEqual(['pdf', 'string']);
+  });
+
   it('keeps listing a tool in its primary category', () => {
     const categories = getToolsByCategory([], tEn, tools);
     const pdfCategory = categories.find(({ type }) => type === 'pdf');
