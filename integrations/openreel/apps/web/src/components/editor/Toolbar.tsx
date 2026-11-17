@@ -28,6 +28,7 @@ import { SettingsDialog } from "./settings/SettingsDialog";
 import { Icon } from "@/icons/Icon";
 import { toast } from "../../stores/notification-store";
 import { useAnalytics, AnalyticsEvents } from "../../hooks/useAnalytics";
+import { LanguageSelector } from "../LanguageSelector";
 import {
   ToolcraftDropdownMenu as DropdownMenu,
   ToolcraftDropdownMenuItem as DropdownMenuItem,
@@ -412,7 +413,8 @@ export const Toolbar: React.FC = () => {
       </div>
 
       {/* ─── Right: export only ───────────────────────────────── */}
-      <div className="flex items-center justify-end shrink-0">
+      <div className="flex items-center justify-end gap-2 shrink-0">
+        <LanguageSelector placement="inline" />
         {/* Export */}
         {exportState.isExporting ? (
           <button
