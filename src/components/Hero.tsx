@@ -125,29 +125,20 @@ export default function Hero() {
       : exampleTools;
 
   return (
-    <Box width={{ xs: '90%', md: '80%', lg: '60%' }}>
-      <Stack mb={1} direction={'row'} spacing={1} justifyContent={'center'}>
-        <Typography sx={{ textAlign: 'center' }} fontSize={{ xs: 25, md: 30 }}>
-          {t('translation:hero.title')}{' '}
-          <Typography
-            fontSize={{ xs: 25, md: 30 }}
-            display={'inline'}
-            color={'primary'}
-          >
-            {t('translation:hero.brand')}
-          </Typography>
-        </Typography>
-      </Stack>
+    <Box width="100%" maxWidth={850}>
+      <Typography component="h1" sx={{ fontSize: { xs: 40, md: 68 }, fontWeight: 850, lineHeight: 1.08, letterSpacing: '-.055em', maxWidth: 760, mb: 2 }}>
+        Tudo o que você precisa, <Box component="span" sx={{ color: '#13836a' }}>em um só lugar.</Box>
+      </Typography>
       <Typography
-        sx={{ textAlign: 'center' }}
-        fontSize={{ xs: 15, md: 20 }}
-        mb={2}
+        sx={{ maxWidth: 620, color: 'text.secondary' }}
+        fontSize={{ xs: 16, md: 19 }}
+        mb={4}
       >
-        {t('translation:hero.description')}
+        Encontre ferramentas práticas para criar, converter, organizar e resolver tarefas em poucos cliques.
       </Typography>
 
       <Autocomplete
-        sx={{ mb: 2 }}
+        sx={{ mb: 3, maxWidth: 760, '& .MuiOutlinedInput-root': { minHeight: 62, borderRadius: 3, boxShadow: '0 14px 36px rgba(17, 62, 49, .12)' } }}
         autoHighlight
         options={filteredTools}
         noOptionsText={t('translation:hero.search.noResult')}
@@ -231,38 +222,38 @@ export default function Hero() {
           }
         }}
       />
-      <Grid container spacing={2} mt={2}>
+      <Typography variant="overline" sx={{ fontWeight: 800, letterSpacing: 1.5, color: 'text.secondary' }}>ACESSO RÁPIDO</Typography>
+      <Grid container spacing={1.5} mt={0.5} sx={{ maxWidth: 850 }}>
         {displayedTools.map((tool) => (
           <Grid
             onClick={() =>
               navigate(tool.url.startsWith('/') ? tool.url : `/${tool.url}`)
             }
             item
-            xs={12}
-            md={6}
-            lg={4}
+            xs={6}
+            sm={4}
+            md={3}
             key={tool.label}
           >
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 borderWidth: 1,
-                padding: 1,
-                borderRadius: 3,
-                borderColor: theme.palette.mode === 'dark' ? '#363b41' : 'grey',
+                padding: 1.5,
+                borderRadius: 2,
+                borderColor: theme.palette.mode === 'dark' ? '#35534a' : '#c7dfd5',
                 borderStyle: 'solid',
                 backgroundColor: 'background.paper',
                 cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'background.hover'
-                },
+                '&:hover': { borderColor: '#13836a', transform: 'translateY(-2px)', boxShadow: '0 8px 24px rgba(17, 62, 49, .1)' },
+                transition: 'all .18s ease',
                 height: '100%'
               }}
             >
               <Stack direction={'row'} spacing={1} alignItems={'center'}>
-                <Typography textAlign={'center'}>{t(tool.label)}</Typography>
+                <Typography fontSize={13} fontWeight={650}>{t(tool.label)}</Typography>
                 {bookmarkedToolPaths.length > 0 && (
                   <IconButton
                     onClick={(e) => {
