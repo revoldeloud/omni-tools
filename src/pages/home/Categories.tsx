@@ -114,7 +114,7 @@ function SingleCategory({
             >
               {`Ver todas as ferramentas de ${title}`}
             </Button>
-            <Button variant="contained" size="medium" fullWidth disableElevation sx={{ borderRadius: 2, minHeight: 42, fontWeight: 800, bgcolor: categoriesColors[index % categoriesColors.length], color: '#fff', '&:hover': { bgcolor: categoriesColors[index % categoriesColors.length], filter: 'brightness(.92)' } }} onClick={() => navigate(`/${category.example.path}`)}>Usar ferramenta</Button>
+            <Button variant="contained" size="medium" fullWidth disableElevation sx={{ borderRadius: 2, minHeight: 42, fontWeight: 800, bgcolor: categoriesColors[index % categoriesColors.length], color: '#fff', '&:hover': { bgcolor: categoriesColors[index % categoriesColors.length], filter: 'brightness(.92)' } }} onClick={() => category.type === 'video' ? window.location.assign('/openreel/') : navigate(`/${category.example.path}`)}>Usar ferramenta</Button>
           </Stack>
         </CardContent>
       </Card>
