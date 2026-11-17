@@ -91,6 +91,10 @@ export default function Hero() {
       label: 'translation:hero.examples.trimVideo',
       url: '/video/trim'
     },
+    { label: 'video:compress.title', url: '/video/compress' },
+    { label: 'video:changeSpeed.title', url: '/video/change-speed' },
+    { label: 'video:mergeVideo.title', url: '/video/merge-video' },
+    { label: 'video:rotate.title', url: '/video/rotate' },
     {
       label: 'translation:hero.examples.calculateNumberSum',
       url: '/number/sum'
