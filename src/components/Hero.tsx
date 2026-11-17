@@ -125,20 +125,9 @@ export default function Hero() {
       : exampleTools;
 
   return (
-    <Box width="100%" maxWidth={850}>
-      <Typography component="h1" sx={{ fontSize: { xs: 40, md: 68 }, fontWeight: 850, lineHeight: 1.08, letterSpacing: '-.055em', maxWidth: 760, mb: 2 }}>
-        Tudo o que você precisa, <Box component="span" sx={{ color: '#13836a' }}>em um só lugar.</Box>
-      </Typography>
-      <Typography
-        sx={{ maxWidth: 620, color: 'text.secondary' }}
-        fontSize={{ xs: 16, md: 19 }}
-        mb={4}
-      >
-        Encontre ferramentas práticas para criar, converter, organizar e resolver tarefas em poucos cliques.
-      </Typography>
-
+    <Box width="100%">
       <Autocomplete
-        sx={{ mb: 3, maxWidth: 760, '& .MuiOutlinedInput-root': { minHeight: 62, borderRadius: 3, boxShadow: '0 14px 36px rgba(17, 62, 49, .12)' } }}
+        sx={{ mb: 1.5, '& .MuiOutlinedInput-root': { minHeight: 54, borderRadius: 2.5, boxShadow: '0 5px 20px rgba(17, 62, 49, .08)' } }}
         autoHighlight
         options={filteredTools}
         noOptionsText={t('translation:hero.search.noResult')}
@@ -222,8 +211,8 @@ export default function Hero() {
           }
         }}
       />
-      <Typography variant="overline" sx={{ fontWeight: 800, letterSpacing: 1.5, color: 'text.secondary' }}>ACESSO RÁPIDO</Typography>
-      <Grid container spacing={1.5} mt={0.5} sx={{ maxWidth: 850 }}>
+      <Typography variant="overline" sx={{ fontWeight: 800, letterSpacing: 1.2, color: 'text.secondary' }}>FERRAMENTAS RÁPIDAS</Typography>
+      <Grid container spacing={1} mt={0}>
         {displayedTools.map((tool) => (
           <Grid
             onClick={() =>
@@ -241,8 +230,8 @@ export default function Hero() {
                 justifyContent: 'flex-start',
                 alignItems: 'center',
                 borderWidth: 1,
-                padding: 1.5,
-                borderRadius: 2,
+                padding: 1,
+                borderRadius: 1.5,
                 borderColor: theme.palette.mode === 'dark' ? '#35534a' : '#c7dfd5',
                 borderStyle: 'solid',
                 backgroundColor: 'background.paper',
